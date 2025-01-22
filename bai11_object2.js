@@ -184,34 +184,34 @@ console.log(isCourseFound);
 console.log(isFindObject);
 
 //? Practice 2
-const sports = [
-    {
-        name: 'Bóng rổ',
-        like: 6
-    },
-    {
-        name: 'Bơi lội',
-        like: 5
-    },
-    {
-        name: 'Bóng đá',
-        like: 10
-    },
-]
-function getMostFavoriteSport(sports)
-{
-    var arr = [];
-   var checkLike = sports.filter(function(sport,index)
-    {
-        return sport.like > 5;
-    }
-)
-    return arr = checkLike;
-}
+// // const sports = [
+// //     {
+// //         name: 'Bóng rổ',
+// //         like: 6
+// //     },
+// //     {
+// //         name: 'Bơi lội',
+// //         like: 5
+// //     },
+// //     {
+// //         name: 'Bóng đá',
+// //         like: 10
+// //     },
+// // ]
+// function getMostFavoriteSport(sports)
+// {
+//     var arr = [];
+//    var checkLike = sports.filter(function(sport,index)
+//     {
+//         return sport.like > 5;
+//     }
+// )
+//     return arr = checkLike;
+// }
 
-// Kỳ vọng
-console.log(getMostFavoriteSport(sports));
-// Output: [{ name: 'Bóng rổ, like: 6 }, { name: 'Bóng đá, like: 10 }]
+// // Kỳ vọng
+// console.log(getMostFavoriteSport(sports));
+// // Output: [{ name: 'Bóng rổ, like: 6 }, { name: 'Bóng đá, like: 10 }]
 
 
 //? map()
@@ -234,5 +234,75 @@ function courseHandler(course,index)
 };
 var myCourses = courses.map(courseHandler);
 console.log(myCourses);
+
+
+//? reduce()
+var i = 0;
+
+function coinHandler(accumulator,currentValue, currentIndex, orriginArray)
+{
+   i++;
+   var total = accumulator + currentValue.coin;
+   console.table(
+    {
+        "ID " : i,
+        "Biến lưu trữ " : accumulator,
+        "Giá trị khóa học" : currentValue.coin,
+        "Tích trữ " : total,
+    }
+   )
+   return 100;
+}
+var totalCoin = courses.reduce(coinHandler, 0);
+
+//? Practice 3
+
+var sports = [
+    {
+        name: 'Bơi lội',
+        gold: 11
+    },
+    {
+        name: 'Boxing',
+        gold: 3
+    },
+    {
+        name: 'Đạp xe',
+        gold: 4
+    },
+    {
+        name: 'Đấu kiếm',
+        gold: 5
+    },
+] 
+//? Cách tính thủ công --> Khá đơn giản và dễ hiểu
+// function getTotalGold(sports)
+// {
+//     let sum = 0;
+//    for( const value of sports){
+//     sum += value.gold;
+//    }
+//    return sum;
+// }
+
+//? Cách tính sử dụng Reduce 
+function getTotalGold(sports)
+{
+    var totalGold = sports.reduce(function(gold, value)
+    {
+        console.table(
+            {
+                "Value: " : value.gold,
+            }
+        )
+    }, 0);
+    return totalGold;
+}
+// Expected results:
+console.log(getTotalGold(sports)) // Output: 23
+
+
+
+
 
 
