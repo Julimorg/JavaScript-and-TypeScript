@@ -490,10 +490,55 @@ console.log(filter);
   // Expected results
   console.log(calculateRating(watchList)); // Output: 8.675
   
+  //? Cách reduce hoạt động 
+  const listnum = [1,2,3,4,5,6];
+  Array.prototype.reduce2 = function(callback,result)
+  {
+    let i = 0;
+    if (arguments.length < 2)
+    {
+        i = 1;
+        result = this[0];
+    }
+    for (; i < this.length; i++)
+    {
+        result = callback(result, this[i], this)
+    }
+    return result
+  }
+  const check = listnum.reduce2(function(total,number)
+{
+    return total + number;
+})
   
+  console.log(check);
   
-  
-  
+//? Practice 5
+
+var arr = [
+    ['name', 'Sơn Đặng'],
+    ['age', 18],
+];
+function arrToObj(arr)
+{
+   return arr.reduce(function(obj,value)
+    {
+        obj[value[0]] = value[1];
+        return obj;
+    }, {}   
+)
+}
+ 
+
+console.log(arrToObj(arr)); // { name: 'Sơn Đặng', age: 18 }
+
+
+
+//? String / Arrays include()
+ const course = ["Javascript", "PHP", "Java" , "C/C++"]
+ const checkValue = course.includes("Java");
+ console.log(checkValue);
+
   
   
 
