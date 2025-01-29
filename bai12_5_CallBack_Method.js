@@ -1,44 +1,3 @@
-// function myFunction(param){
-//     param();
-// }
-
-// function myCallBack(value)
-// {
-//     console.log("Value :", value);
-
-// }
-// myFunction(myCallBack); // Call the function
-
-//? Practice 1
-function sumCb(a, b) {
-    return a + b;
-}
-function subCb(a,b)
-{
-    return a - b;
-}
-function multiCb(a,b)
-{
-    return a * b;
-}
-function divCb(a,b)
-{
-    return a / b;
-}
-function caculate(a, b, cb) {
-    return cb(a, b);
-}
-console.log(caculate(1,2,sumCb));
-console.log(caculate(1,2,subCb));
-console.log(caculate(1,2,multiCb));
-console.log(caculate(3,1,divCb)); 
-
-// Expected results
-// caculate(1, 2, sumCb) // Output: 3
-// caculate(1, 2, subCb) // Output: -1
-// caculate(1, 2, multiCb) // Output: 2
-// caculate(3, 1, divCb) // Output: 3
-
 var course = [
     "JavaScript",
     "PHP",
@@ -134,6 +93,16 @@ Array.prototype.myfilter = function(callback,index) {
     }
 }
 //? Cách hoạt động của ForEach()
+Array.prototype.myForEach = function(callback)
+{
+    for(let index in this) 
+    {
+        if(this.hasOwnProperty(index))
+        {
+            callback(this[index],index,this)
+        }
+    }
+}
 
 //? CallBack Function
 const checkFilter = DetailCourse.filter(function(course,index) // Filter()
@@ -155,14 +124,14 @@ const checkReduce = course.myReduce(function(total,number) // Reduce()
   {
       return total + number;
   })
- course.forEach(function(course,index,array) // ForEach()
+ const checkForEach = course.myForEach(function(course,index,array) // ForEach()
   {
     console.log(course,index, array);
     return 
   }
 )
 
-var htmls = course.myMap(function(course)
+var htmls = course.myMap(function(course) //map()
     {
         return `<h2> ${course} </h2>`;
     }
@@ -175,26 +144,13 @@ console.log("My Find: " , checkFind);
 console.log("-".repeat(50));
 console.log("My Filter: ", checkFilter);
 console.log("-".repeat(50));
-// console.log("My ForEach: ", checkForEach);
-
-
-//?Practice
-const numbers = [1, 2, 3];
-
-Array.prototype.myMap2 = function(cb) {
-    var arr = [];
-    for(let i = 0; i < this.length ; i++ )
-    {
-        var result = cb(this[i],i);
-        arr.push(result);
-    }
-    return arr;
+console.log("My ForEach: ", checkForEach);
+course.myForEach(function(course,index, array) // ForEach()
+{
+  console.log(course,index,array);
+  return 
 }
+)
+console.log("-".repeat(50));
 
-// console.log(numbers.myMap2(function (number) {
-//     return number * 2;
-// })) // Output: [2, 4, 6]
 
-console.log(numbers.myMap2(function (number, index) {
-    return number * index;
-})) // Output: [0, 2, 6]
