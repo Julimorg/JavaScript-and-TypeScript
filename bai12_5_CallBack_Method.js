@@ -42,7 +42,23 @@ var DetailCourse = [
         coin: 500
     }
 ]
-
+var myCourses = [
+    {
+        name: "Java",
+        coin: 410,
+        isFinish: true,
+    },
+    {
+        name: "dqw",
+        coin: 41410,
+        isFinish: true,
+    },
+    {
+        name: "eq",
+        coin: 4155,
+        isFinish: true,
+    }
+]
 console.log(htmls);
 //? Cách hoạt động của map()
 Array.prototype.myMap = function(callBack)
@@ -85,12 +101,20 @@ Array.prototype.myFind = function(callback, index) {
     return undefined;
 };
 //? Cách hoạt động của filter()
-Array.prototype.myfilter = function(callback,index) {
-    let arrLength = this.length;
-    for(; i < arrLength; i++)
+Array.prototype.myfilter = function(callback) {
+    var arr = [];
+    for(var index in this)
     {
-        return this[index];
+        if ( this.hasOwnProperty(index))
+        {
+           var result = callback(this[index],index, this);
+           if(result)
+           {
+            arr.push(this[index]);
+           }
+        }
     }
+    return arr;
 }
 //? Cách hoạt động của ForEach()
 Array.prototype.myForEach = function(callback)
@@ -103,11 +127,44 @@ Array.prototype.myForEach = function(callback)
         }
     }
 }
-
+//? Cách hoạt động của mySome()
+Array.prototype.mySome = function(callback)
+{ 
+    var output = false;
+    for(let index in this)
+    {
+       if(this.hasOwnProperty(index))
+       {
+          if(callback(this[index],index,this) )
+          {
+            output = true;
+            break;
+          }
+       }
+    }
+    return output;
+}
+//? Cách hoạt động của every()
+Array.prototype.myEvery = function(callback)
+{
+    var output = true;
+    for(let index in this)
+    {
+       if(this.hasOwnProperty(index))
+       {
+          if(!callback(this[index],index,this) )
+          {
+            output = false;
+            break;
+          }
+       }
+    }
+    return output;
+}
 //? CallBack Function
 const checkFilter = DetailCourse.filter(function(course,index) // Filter()
     {
-        return course.duration > 2;
+        return course.duration > 0;
     }
 )
 
@@ -130,7 +187,16 @@ const checkReduce = course.myReduce(function(total,number) // Reduce()
     return 
   }
 )
-
+const checkSome = DetailCourse.mySome(function(course,index,array) // some()
+    {
+        return course.duration === 2;
+    }
+)
+const checkEvery = myCourses.myEvery(function(course,index,array) //every()
+    {
+        return course.isFinish ;
+    }
+) 
 var htmls = course.myMap(function(course) //map()
     {
         return `<h2> ${course} </h2>`;
@@ -152,5 +218,45 @@ course.myForEach(function(course,index, array) // ForEach()
 }
 )
 console.log("-".repeat(50));
+console.log("My Some: ", checkSome);
+console.log("-".repeat(50));
+console.log("My Every: ", checkEvery);
 
+
+
+const numbers = [1, 3, 3, 5];
+Array.prototype.myEvery3 = function(cb) {
+    var check = true;
+    for(let index in this)
+    {
+        if(this.hasOwnProperty(index))
+        {
+            if(!cb(this[index],index, this))
+            {
+                check = false;
+                break;
+            }
+        }
+    }
+    return check;
+}
+console.log(numbers.myEvery3(function (number) {
+    return number % 2 !== 0;
+}));
+
+// Expected results
+
+// const numbers = [1, 3, 3, 5];
+
+// console.log(numbers.myEvery(function (number) {
+//     return number % 2 !== 0;
+// })); // Output: true
+
+// console.log(numbers.myEvery(function (number, index) {
+//     return index % 2 === 0;
+// })); // Output: false
+
+// console.log(numbers.myEvery(function (number, index, array) {
+//     return array.length % 2 === 0;
+// })); // Output: true
 
