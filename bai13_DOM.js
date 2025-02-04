@@ -81,3 +81,37 @@ function render(courses) {
 ).join('');
 }
 console.log(render(courses));
+
+//* 7 DOM Style
+var checkAnchor = document.querySelector("a");
+checkAnchor.style.backgroundColor = "red";
+
+var colorText = document.querySelector(".red");
+Object.assign(colorText.style,
+  {
+    backgroundColor: "#f00"
+  }
+)
+var checkP = document.querySelector("p");
+checkP.style.color = "#f05123";
+
+//* ClassList Properties
+//? add, contains, remove, toggle
+var addingClassIntoH1 = document.querySelector(".boxCon > h1");
+addingClassIntoH1.classList.add("title");
+var addingClassIntoP = document.querySelector(".boxCon > p");
+addingClassIntoP.classList.remove("sub-title");
+addingClassIntoP.classList.add("content");
+
+//* DOM events
+//? Event handlers Event listeners
+
+var checkClick = document.querySelectorAll(".boxCon");
+
+for(let i = 0; i < checkClick.length ; i++)
+{
+  checkClick[i].onclick = function(e)
+  {
+    console.log(e.target);
+  }
+}
