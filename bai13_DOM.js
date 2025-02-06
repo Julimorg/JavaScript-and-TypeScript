@@ -115,3 +115,41 @@ for(let i = 0; i < checkClick.length ; i++)
     console.log(e.target);
   }
 }
+
+//? Select Box
+var selectBox = document.querySelector("select");
+selectBox.onchange = function(e)
+{
+  var takeValue = document.querySelector(".takeSelectValue");
+  takeValue.textContent = e.target.value;
+}
+
+//? input text
+var inputElement = document.querySelector("input[type='text']");
+inputElement.oninput = function(e)
+{
+  var textValue = document.querySelector(".takeTextValue");
+  textValue.textContent =  e.target.value;
+}
+
+//? check box
+var checkBoxValue = document.querySelector("input[type='checkbox']");
+checkBoxValue.onchange = function(e)
+{
+  var takeValue = document.querySelector(".takeCheckValue");
+  if (e.target.checked === true)
+  {
+    takeValue.textContent = "Check Box is checked";
+  }else
+  {
+    takeValue.textContent = "Check Box is not checked";
+  }
+}
+
+//* Event Listener
+var clickButton = document.querySelector(".myButton");
+clickButton.addEventListener("click", function(e)
+  {
+    console.log("Button Clicked");
+  }
+)
