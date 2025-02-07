@@ -1,95 +1,3 @@
-var watchList = [
-    {
-      "Title": "Inception",
-      "Year": "2010",
-      "Rated": "PG-13",
-      "Released": "16 Jul 2010",
-      "Runtime": "148 min",
-      "Genre": "Action, Adventure, Crime",
-      "Director": "Christopher Nolan",
-      "Writer": "Christopher Nolan",
-      "Actors": "Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page, Tom Hardy",
-      "Plot": "A thief, who steals corporate secrets through use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO.",
-      "Language": "English, Japanese, French",
-      "Country": "USA, UK",
-      "imdbRating": "8.8",
-      "imdbVotes": "1,446,708",
-      "imdbID": "tt1375666",
-      "Type": "movie",
-    },
-    {
-      "Title": "Interstellar",
-      "Year": "2014",
-      "Rated": "PG-13",
-      "Released": "07 Nov 2014",
-      "Runtime": "169 min",
-      "Genre": "Adventure, Drama, Sci-Fi",
-      "Director": "Christopher Nolan",
-      "Writer": "Jonathan Nolan, Christopher Nolan",
-      "Actors": "Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow",
-      "Plot": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
-      "Language": "English",
-      "Country": "USA, UK",
-      "imdbRating": "8.6",
-      "imdbVotes": "910,366",
-      "imdbID": "tt0816692",
-      "Type": "movie",
-    },
-    {
-      "Title": "The Dark Knight",
-      "Year": "2008",
-      "Rated": "PG-13",
-      "Released": "18 Jul 2008",
-      "Runtime": "152 min",
-      "Genre": "Action, Adventure, Crime",
-      "Director": "Christopher Nolan",
-      "Writer": "Jonathan Nolan (screenplay), Christopher Nolan (screenplay), Christopher Nolan (story), David S. Goyer (story), Bob Kane (characters)",
-      "Actors": "Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine",
-      "Plot": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, the caped crusader must come to terms with one of the greatest psychological tests of his ability to fight injustice.",
-      "Language": "English, Mandarin",
-      "Country": "USA, UK",
-      "imdbRating": "9.0",
-      "imdbVotes": "1,652,832",
-      "imdbID": "tt0468569",
-      "Type": "movie",
-    },
-    {
-      "Title": "Batman Begins",
-      "Year": "2005",
-      "Rated": "PG-13",
-      "Released": "15 Jun 2005",
-      "Runtime": "140 min",
-      "Genre": "Action, Adventure",
-      "Director": "Christopher Nolan",
-      "Writer": "Bob Kane (characters), David S. Goyer (story), Christopher Nolan (screenplay), David S. Goyer (screenplay)",
-      "Actors": "Christian Bale, Michael Caine, Liam Neeson, Katie Holmes",
-      "Plot": "After training with his mentor, Batman begins his fight to free crime-ridden Gotham City from the corruption that Scarecrow and the League of Shadows have cast upon it.",
-      "Language": "English, Urdu, Mandarin",
-      "Country": "USA, UK",
-      "imdbRating": "8.3",
-      "imdbVotes": "972,584",
-      "imdbID": "tt0372784",
-      "Type": "movie",
-    },
-    {
-      "Title": "Avatar",
-      "Year": "2009",
-      "Rated": "PG-13",
-      "Released": "18 Dec 2009",
-      "Runtime": "162 min",
-      "Genre": "Action, Adventure, Fantasy",
-      "Director": "James Cameron",
-      "Writer": "James Cameron",
-      "Actors": "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang",
-      "Plot": "A paraplegic marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
-      "Language": "English, Spanish",
-      "Country": "USA, UK",
-      "imdbRating": "7.9",
-      "imdbVotes": "876,575",
-      "imdbID": "tt0499549",
-      "Type": "movie",
-    }
-  ];
 
 //? Parse JSON
 var myJson = '{"name":"Fong","age":"21"}';
@@ -165,3 +73,178 @@ promise.then(
     console.log("Finally");
   }
 )
+
+function sleep(ms)
+{
+  return new Promise(function(resolve)
+  {
+    setTimeout(resolve, ms);
+  }
+)
+}
+sleep(1000).then(function()
+  {
+    console.log("Xin chao 1");
+    return sleep(1000).then(function()
+    {
+      console.log("xin chao 2");
+    }
+  )
+  }
+);function hell(value, cb) {
+    cb(value);
+}
+
+// Không sử dụng Promise dẫn đến tạo ra callback hell 
+hell(1, function (valueFromA) {
+    hell(valueFromA + 1, function (valueFromB) {
+        hell(valueFromB + 1, function (valueFromC) {
+            hell(valueFromC + 1, function (valueFromD) {
+                console.log(valueFromD + 1);
+            });
+        });
+    });
+});
+
+//? Sử dụng Promise sẽ tạo ra đoạn code dễ đọc hơn và vẫn đảm bảo đúng logic
+function notHell(value) {
+    return new Promise(function (resolve) {
+        resolve(value);
+    });
+}
+
+notHell(1)
+    .then(function (value) {
+        return value + 1;
+    })
+    .then(function (value) {
+        return value + 1;
+    })
+    .then(function (value) {
+        return value + 1;
+    })
+    .then(function (value) {
+        console.log(value + 1);
+    });
+
+//? Handle Catch Error
+function outPutNum(num)
+{
+  return new Promise(function(resolve)
+  {
+    setTimeout(resolve, num);
+    console.log(Math.random());
+  }
+)
+}
+outPutNum(2000).then(function()
+  {
+    console.log(Math.random());
+  }
+).then(function(){
+  console.log(Math.random());
+}).then(function(){
+  console.log(Math.random());
+}).then(function(){
+  return new Promise(function(resolve,reject){
+    reject("Something went wrong here!"); //-> sẽ cho ra UnCaught 
+  })
+}).then(function(){
+  console.log(Math.random());
+}).catch(function(err){
+  console.log(err);
+})
+//? Promise.all
+
+var promise1 = new Promise(function(resolve){
+  setTimeout(function(){
+    resolve([1]);
+  },2000);
+})
+var promise2 = new Promise(function(resolve){
+  setTimeout(function(){
+    resolve([2,3])
+  },5000);
+})
+Promise.all([promise1, promise2]).then(function(result){
+  var result1 = result[0];
+  var result2 = result[1];
+  console.log(result1.concat(result2));
+})
+
+
+//**  Simple Practice
+var users = [
+  {
+    id: 1,
+    name: "Fong",
+  },
+  {
+    id: 2,
+    name: "Tuan",
+  },
+  {
+    id: 3,
+    name: "Phong",
+  }
+]
+
+var comments = [
+  {
+    id: 1,
+    user_id: 1,
+    content: "Good movie",
+  },
+  {
+    id: 2,
+    user_id: 2,
+    content: "Bad movie",
+  },
+  {
+    id: 3,
+    user_id: 3,
+    content: "Nice acting",
+  }
+]
+
+function getComments()
+{
+  return new Promise(function(resolve){
+    setTimeout(function()
+  {
+    resolve(comments);
+  },1000)
+  })
+}
+function getUserbyId(userIds)
+{
+  return new Promise(function(resolve){
+    var result = users.filter(function(user){
+      return userIds.includes(user.id);
+    })
+    setTimeout(function(){
+      resolve(result);
+    },1000);
+  },1000)
+}
+getComments().then(function(comments){
+    var userIds = comments.map(function(comment)
+  {
+    return comment.user_id;
+  });
+ return getUserbyId(userIds).then(function(users){
+    return {
+      users: users,
+      comments: comments,
+    }
+  })}).then(function(data){
+  var commentBlock = document.getElementById("comments-box");
+  var html = '';
+  data.comments.forEach(function(comment){
+    var user = data.users.find(function(user){
+      return user.id === comment.user_id;
+    });
+    html += `<li>${user.name}: ${comment.content}</li>`;
+  })
+  commentBlock.innerHTML = html;
+})
