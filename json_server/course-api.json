@@ -1,0 +1,9 @@
+{
+    "course-api":[
+        {
+            "id": 1,
+            "name": "React",
+            "description": "React is a JavaScript library for building user interfaces."
+        }
+    ]
+}

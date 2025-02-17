@@ -1,6 +1,6 @@
 
 
-var userApi = "http://localhost:3000/users-api";
+var userApi = "http://localhost:3000/course-api";
 
 function start()
 {
