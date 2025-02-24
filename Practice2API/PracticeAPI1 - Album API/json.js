@@ -1,32 +1,57 @@
 var albumApi = "https://jsonplaceholder.typicode.com/albums";
 
-fetch(albumApi)
-.then(function(response){
-    return response.json();
-})
-.then(function(albums){
-    var htmls = albums.map(function(album){
-        return `<h2>${album.userId}</h2>
-        <h3>${album.id}</h3>
-        <p>${album.title}</p>
-        `;
-    })
-    var list = document.querySelector(".listAlbum");
-    list.innerHTML = htmls.join('');
-    return albums; // trả về albums để then tiếp theo có thể lấy data để sử dụng
-})
-.then(function(albums){
-    //? Lấy ra album có tên dài hơn 10 ký tự và output ra html
-    var name = albums.filter(function(album){
-        return album.title.length > 70;
-    }).map(function(album){
-        return `
-        <p>${album.title}</p>
-        `;
-    })
-    var listName = document.querySelector(".nameList");
-    listName.innerHTML = name.join('');
 
-}).catch(function(err){
-    console.log("Error!");''
-})
+function display() {
+    getAlbum((albums) => {
+        renderAlbum(albums);
+        handlerFilterAlbumNameByLargest(albums);
+        handlerFilterAlbumNameByLowest(albums);
+    });
+}
+display()
+
+function getAlbum(callback)
+{
+    fetch(albumApi)
+    .then(response => {
+        return response.json();
+    })
+    .then(callback)
+    .catch(error => {
+        alert("Something went wrong", error);
+    })
+    .finally(() => {
+        console.log("Fetch completed");
+    })
+}
+function renderAlbum(albums){
+    var listAlbum = document.querySelector(".listAlbum");
+    var htmls = albums.map(album => {
+        return `<li>${album.title}</li>`;
+    });
+    listAlbum.innerHTML = htmls.join("");
+}
+
+//? Largest
+function handlerFilterAlbumNameByLargest(albums)
+{
+    var button1 = document.querySelector(".button1");
+    button1.addEventListener("click", () => {
+        const albumName = albums.filter(album => {
+            return album.title.length > 50;
+        });
+        renderAlbum(albumName);
+    })
+}
+
+//? Lowest
+function handlerFilterAlbumNameByLowest(albums)
+{
+    var button2 = document.querySelector(".button2");
+    button2.addEventListener("click", () => {
+      let albumName2 = albums.filter(album => {
+        return album.title.length < 50;
+      });
+      renderAlbum(albumName2); 
+    })
+}
