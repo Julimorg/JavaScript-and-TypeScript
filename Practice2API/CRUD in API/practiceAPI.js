@@ -1,6 +1,6 @@
 
 
-var userApi = "http://localhost:3000/course-api";
+var userApi = "http://10.11.77.106:3000/api/v1/user";
 
 function start()
 {
@@ -13,7 +13,12 @@ start()
 function getUsers(callback){
     fetch(userApi).then(function(response){
         return response.json();
-    }).then(callback);
+    })
+    .then(data => {
+        console.log("API Response:", data); // Kiểm tra dữ liệu nhận được
+        callback(data);
+    })
+    .then(callback);
 }
 //? Function createUser with method POST
 function createUser(data,callback){
@@ -32,10 +37,17 @@ function createUser(data,callback){
 
 //? function renderUser
 function renderUsers(users){
+    var userArr = users.data; // Lấy mảng từ trong object
+
+    if (!Array.isArray(userArr)) {
+        console.error("Users is not an array:", users);
+        return;
+    }
+
     var listUser = document.querySelector('#list-users');
-    var htmls = users.map(function(user){
+    var htmls = userArr.map(function(user){
         return `<li data-id = "${user.id}">
-            <h1>${user.name}</h1>
+            <h1>${user.first_name}</h1>
             <p>${user.email}</p>
             <button onclick = "handleDeleteUsers(${user.id})" >Delete</button>
             </br>

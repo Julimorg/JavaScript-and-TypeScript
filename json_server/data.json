@@ -1,0 +1,81 @@
+{
+  "data": [
+    {
+      "first_name": "huy",
+      "last_name": "nguyen",
+      "user_name": "trung huy",
+      "email": "trunghuy@gmail.com",
+      "phone_num": 12345678,
+      "country": "TPHCM",
+      "dob": "2022-02-21T17:00:00.000Z",
+      "id": "2645"
+    },
+    {
+      "first_name": "phong",
+      "last_name": "tran",
+      "user_name": "kien phong",
+      "email": "kienphong@gmail.com",
+      "phone_num": 12345678,
+      "country": "TPHCM",
+      "dob": "2022-02-21T17:00:00.000Z",
+      "id": "ce93"
+    },
+    {
+      "first_name": "anh",
+      "last_name": "le",
+      "user_name": "tuan anh",
+      "email": "tuananh@gmail.com",
+      "phone_num": 12345678,
+      "country": "TPHCM",
+      "dob": "2022-02-21T17:00:00.000Z",
+      "id": "893a"
+    },
+    {
+      "first_name": "nam",
+      "last_name": "tran",
+      "user_name": "van nam",
+      "email": "vannam12836@gmail.com",
+      "phone_num": 12345678,
+      "country": "TPHCM",
+      "dob": "2022-02-21T17:00:00.000Z",
+      "id": "a2bd"
+    },
+    {
+      "first_name": "thanh",
+      "last_name": "bui",
+      "user_name": "trung thanh",
+      "email": "thanhadmin@gmail.com",
+      "phone_num": 12345678,
+      "country": "TPHCM",
+      "dob": "2022-02-21T17:00:00.000Z",
+      "id": "2b0d"
+    },
+    {
+      "first_name": "khoa",
+      "last_name": "bui",
+      "user_name": "bui khoa",
+      "email": "khoaadmin@gmail.com",
+      "phone_num": 12345678,
+      "country": "TPHCM",
+      "dob": "2022-02-21T17:00:00.000Z",
+      "id": "a56a"
+    },
+    {
+      "first_name": "ad",
+      "last_name": "min",
+      "user_name": "admin3",
+      "email": "buikhoa2015@gmail.com",
+      "phone_num": 12345678,
+      "country": "VN",
+      "dob": "2003-02-21T17:00:00.000Z",
+      "id": "5e66"
+    },
+    {
+      "id": "6892",
+      "name": "Fong",
+      "email": "email"
+    }
+  ],
+  "HttpCode": 200,
+  "HttpMessage": "SUCCESS"
+}
