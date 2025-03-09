@@ -4,6 +4,7 @@ const countriesName = document.querySelector(".country-name");
 const loading = document.querySelector(".loading");
 const longitude = document.querySelector(".longtitude");
 const latitude = document.querySelector(".latitude");
+
 // NEW COUNTRIES API URL (use instead of the URL shown in videos):
 // https://restcountries.com/v2/name/portugal
 
@@ -37,46 +38,56 @@ const renderError = function (msg) {
   countriesContainer.style.opacity = 1;
 };
 
-//? Get location
-
 const getPosition = function(){
-  return new Promise(function(resolve, reject){
-    navigator.geolocation.getCurrentPosition(resolve,reject);
-  })
-}
-// console.log(getPosition());
-// getPosition().then(data => console.log(data));
+    return new Promise(function(resolve, reject){
+      navigator.geolocation.getCurrentPosition(resolve,reject);
+    })
+  }
+// ? art id = 127616
+const whereAmI = async function() {
+    try {
+    const pos = await getPosition();
+    const {latitude: lat, longitude: lng } = pos.coords;
+    //? Fetch location
+    const resGeo = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`);
+    const dataGeo = await resGeo.json();    
+    console.log(dataGeo);
+    console.log(dataGeo.countryName);
+    
+    //? Fetch Country API
+    const res = await fetch(`https://restcountries.com/v2/name/${dataGeo.countryName}`);
+    console.log(res);
 
-const whereAmI = function(){
-  getPosition().then(pos => {
-    const {latitude: lat, longitude: lng} = pos.coords;
-    return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
-  })
-  .then(response =>{
-    if (!response.ok)
-    {
-      throw new Error(`Failed to fetch location , for more detail: ${response.status}`);
-    }
-    console.log(response.json());
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-    console.log(`You are in ${data.city}, ${data.countryName}`);
-    return fetch(`https://restcountries.com/v2/name/${data.countryName}`);
-  })
-  .then(response => {
-    if(!response.ok){
-      throw new Error(`Country not found, for more detail ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
+    const data = await res.json();
     renderCountry(data[0]);
-  })
-  .catch(err =>{
-    alert(`${err.message}`)
-  })
+    return `You are in ${dataGeo.city} - ${dataGeo.countryName}`;
+  } catch (err){
+      alert(err.message);
+      renderError(`${err.message}`);
+  }
+}
+// console.log("1: will get location");
+//     whereAmI()
+//     .then(data =>{ 
+//       console.log(data);
+//     })
+//     .catch(err =>{
+//       console.log(`${err.message}`);
+//     })
+//     .finally(() => {
+//       console.log("3: Finished");
+//     })
+
+const handleErroWithAsync = async function(){
+    console.log("1: will get location");
+    try{
+      const displayApi = await whereAmI();
+      console.log(`${displayApi}`);
+    } catch (err){ 
+      console.log(`${err.message}`);
+    }
+    console.log("3: finished");
 }
 
-btn.addEventListener("click", whereAmI)
+handleErroWithAsync()
+
