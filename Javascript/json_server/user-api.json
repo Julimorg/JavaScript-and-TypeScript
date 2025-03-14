@@ -1,0 +1,15 @@
+{
+  "users-api": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@gmail.com",
+      "age": 25
+    },
+    {
+      "id": 2,
+      "name": "eq",
+      "email": "eq"
+    }
+  ]
+}
