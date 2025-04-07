@@ -52,27 +52,7 @@ const restaurant = {
 
 //?Spread Operators
 const arr = [7,8,9];
-const newArr = [1,2, ...arr];
-console.log(...newArr);
-
-const newMenu = [...restaurant.mainMenu, 'Gnocci'];
-console.log(newMenu)
-console.log('-'.repeat(50));
-
-//? Join 2 array
-const menu = [...restaurant.mainMenu.concat(restaurant.starterMenu)];
-const menu2 = [...restaurant.mainMenu, ...restaurant.starterMenu];
-console.log(menu2);
-
-console.log('-'.repeat(50));
-
-//? Iterables: arrays, strings, maps, sets .NOT OBJECT
-const str = "Fong";
-const letters = [...str];
-console.log(letters);
-console.log(...str);
-console.log(`${letters}`)
-
-console.log('-'.repeat(50));
+const spreadArr = [1,2,...arr]; // Spread operator
+console.log(spreadArr); // [1,2,7,8,9]
 
 
