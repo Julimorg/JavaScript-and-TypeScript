@@ -73,26 +73,16 @@ console.log(orderSet.has("Bread"));
 //? Adding element to set
 orderSet.add("Garlic Bread");
 orderSet.add("Garlic Bread");
-
 //? Deleting element from set
 orderSet.delete("Garlic Bread");
-
 //? clear element from set
 // orderSet.clear();
-
-
 console.log(orderSet)
-
-
 for( const order of orderSet){
     console.log(order);
 }
-
-
 console.log("-".repeat(50));
-
 //? Example
-
 const staff = ['Waiter', 'Chef', 'Manager', 'Waiter', 'Chef', 'Manager'];
 const staffUnique = [...new Set(staff)];
 console.log(staffUnique);
